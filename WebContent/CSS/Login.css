@@ -1,0 +1,173 @@
+#body {
+	font-family: Opensans;
+}
+
+#menu {
+	background: #337AB7;
+	border-bottom: 1px solid #5D6972;
+}
+
+.title {
+	color: white;
+	margin-top: 15px;
+	margin-bottom: 14px;
+}
+
+#content {
+	margin-top: 60px;
+	font-family: "MicrosoftYaHei";
+}
+
+#SignUPDiv {
+	/* height: 468px; */
+	background: #fff;
+	/* 	margin-right: 12px; */
+	float: right;
+	border: 1px solid #ccc;
+	border-radius: 10px;
+}
+
+#Registration {
+	width: 90%;
+	height: 78%;
+	margin-right: 22px;
+	float: right;
+	margin-top: 20px;
+}
+
+#login {
+	width: 36%;
+	height: 55px;
+	display: flex;
+	float: right;
+	margin: 6px;
+	padding-top: 10px;
+	/* 	background: grey; */
+}
+
+#username, #password {
+	width: 43%;
+	height: 55px;
+}
+
+#user {
+	width: 92%;
+	height: 25px;
+	padding-left: 5px;
+	margin-left: 3px;
+	border: 0px;
+	outline: 0px;
+	font-size: 15px;
+	color: white;
+	background: transparent;
+	border-bottom: 1px solid #B9B9B9;
+}
+
+#pass {
+	width: 92%;
+	height: 25px;
+	padding-left: 5px;
+	border: 0px;
+	outline: 0px;
+	font-size: 15px;
+	color: white;
+	background: transparent;
+	border-bottom: 1px solid #ccc;
+	/* margin-left: 15px; */
+}
+
+#submit {
+	width: 14%;
+	height: 55px;
+}
+
+.Login-butn {
+	outline: 0px !important;
+}
+
+.SignUp-butn {
+	float: right;
+	/* 	margin-right: 30px; */
+	margin-top: 10px;
+	outline: 0px !important;
+	margin-bottom: 35px;
+}
+
+#registration-heading {
+	padding-left: 15px;
+	margin-top: 15px;
+	color: #888888;
+}
+
+#Semail, #Suser, #Spwd, #Scpwd, #Sphone {
+	width: 100%;
+	height: 25px;
+	padding-left: 5px;
+	margin-left: 3px;
+	border: 0px;
+	outline: 0px;
+	font-size: 15px;
+	border-bottom: 1px solid #ccc;
+}
+
+#labels {
+	display: block;
+	height: 20px;
+	width: 120px;
+	color: #337AB7;
+}
+
+input.ng-dirty.ng-invalid {
+	/* background: #FFE6E6; */
+	border-bottom: 1px solid #BF0000 !important;
+}
+
+input.ng-dirty.ng-valid {
+	/* background: #E6FFE6; */
+	border-bottom: 1px solid #1DBF00 !important;
+}
+
+#user::-webkit-input-placeholder { /* WebKit, Blink, Edge */
+	color: #E6E6E6;
+}
+
+#pass::-webkit-input-placeholder { /* WebKit, Blink, Edge */
+	color: #E6E6E6;
+}
+
+.modal-header {
+	padding-bottom: 10px;
+	padding-top: 10px;
+	color: white;
+	background: #337AB7;
+	border-bottom: 1px solid #5D6972;
+	font-family: "MicrosoftYaHei";
+}
+
+#register-response {
+	text-align: center;
+	padding-top: 20px;
+	margin-bottom: 20px;
+	font-size: 20px;
+	width: 55%;
+	margin: 0px auto;
+	border-bottom-width: 22px;
+	padding-bottom: 20px;
+	color: #16617D;
+}
+
+/* 
+#user,#pass:-moz-placeholder { Mozilla Firefox 4 to 18
+   color:    blue;
+   opacity:  1;
+}
+#user,#pass::-moz-placeholder { Mozilla Firefox 19+
+   color:    yellow;
+   opacity:  1;
+}
+#user,#pass:-ms-input-placeholder { Internet Explorer 10-11
+   color:    aqua;
+}
+#user,#pass:placeholder-shown { Standard (https://drafts.csswg.org/selectors-4/#placeholder)
+  color:    gray;
+} */

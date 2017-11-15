@@ -1,0 +1,220 @@
+<!DOCTYPE html >
+<html ng-app="application">
+<head>
+<meta charset="ISO-8859-1">
+<title>eReminder LogIn</title>
+<link rel="shortcut icon" href="/eReminder/Images/eReminder.png"
+	type="image/x-icon" />
+<script type="text/javascript"
+	src="/eReminder/JScript/jquery-1.11.1.min.js"></script>
+<script type="text/javascript" src="/eReminder/JScript/angular.min.js"></script>
+<script type="text/javascript" src="/eReminder/JScript/bootstrap.min.js"></script>
+<script type="text/javascript"
+	src="/eReminder/JScript/AngularJS/AngularApp.js"></script>
+<script type="text/javascript"
+	src="/eReminder/JScript/AngularJS/AngularController.js"></script>
+<script type="text/javascript"
+	src="/eReminder/JScript/AngularJS/AngularService.js"></script>
+
+<link rel="stylesheet" href="/eReminder/CSS/bootstrap.min.css" />
+<link rel="stylesheet" href="/eReminder/CSS/bootstrap-theme.min.css" />
+<link rel="stylesheet" href="/eReminder/CSS/jquery-ui.css">
+<link rel="stylesheet" href="/eReminder/CSS/Login.css">
+</head>
+<body ng-controller="Controller" id="body">
+
+	<div class="fluid-container">
+		<div id="menu" class="col-md-12">
+			<div class="navbar-header">
+				<div id="logo" class="col-xs-12 col-sm-12 col-md-12">
+					<h1 class="title">eReminder</h1>
+				</div>
+			</div>
+			<form name="login">
+				<div id="login">
+
+					<div id="username">
+						<input type="email" id="user" placeholder="Email"
+							autocomplete="off" name="Loginemail" ng-model="login.email"
+							title="Register Email" required>
+
+						<div style="display: flex;">
+							<div style="color: #8C0604"
+								ng-show="login.Loginemail.$dirty && login.Loginemail.$invalid">
+								<span ng-show="login.Loginemail.$error">Email Invalid </span>
+							</div>
+							<span
+								ng-if="login.Loginemail.$dirty && login.Loginemail.$invalid && login.Loginpassword.$dirty && login.Loginpassword.$invalid"
+								style="margin: 0px 2px; color: #000;">&</span>
+							<div style="color: #8C0604"
+								ng-show="login.Loginpassword.$dirty && login.Loginpassword.$invalid">
+								<span ng-show="login.Loginpassword.$error"> Password
+									Invalid</span>
+							</div>
+						</div>
+
+					</div>
+					<div id="password">
+						<input type="password" id="pass" placeholder="Password"
+							autocomplete="off" name="Loginpassword" autocomplete="off"
+							ng-minlength="6" ng-model="login.password" title="Password"
+							required>
+						<p
+							style="margin-left: 5px; margin-top: 5px; font-size: 12px; color: #D4D4D4; cursor: pointer;">TroubleShoot Required ?</p>
+
+					</div>
+					<div id="submit">
+						<button class="btn btn-success btn-sm Login-butn"
+							ng-click="signIn(login)" ng-disabled="login.$invalid">Sign
+							In</button>
+					</div>
+
+				</div>
+			</form>
+		</div>
+	</div>
+
+
+	<div class="fluid-container">
+
+
+
+		<!-- Model For Response Of Registration-->
+		<div class="modal fade bs-example-modal-sm" tabindex="-1"
+			id="registrationStatus" role="dialog"
+			aria-labelledby="mySmallModalLabel">
+			<div class="modal-dialog modal-md">
+
+				<div class="modal-content">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal"
+							aria-label="Close">
+							<span aria-hidden="true">&times;</span>
+						</button>
+						<h4 class="modal-title" id="exampleModalLabel">Response</h4>
+					</div>
+
+					<p id="register-response">{{registrationMessage}}</p>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-default" data-dismiss="modal"
+							ng-click="reset($scope.remind.recurrence=='')">Close</button>
+
+					</div>
+				</div>
+			</div>
+		</div>
+
+
+
+
+
+		<div id="wrapper" class="toggled">
+			<div class="col-xs-12 col-sm-12 col-md-12" id="content">
+
+				<div class="col-xs-7 col-sm-7 col-md-7"
+					style="width: 66%; padding: 0px;">
+					<img src="/eReminder/Images/remind.png" width="100%">
+
+				</div>
+				<div id="SignUPDiv" class="col-xs-4 col-sm-4 col-md-4">
+					<h2 id="registration-heading">Create an account</h2>
+
+					<div id="Registration">
+						<form name="signup">
+							<div class="form-group">
+								<span id="labels"><label for="email" id="label-Remail">Email
+										address:</label> </span><input autocomplete="off"
+									ng-keyPress="shwLabelEmails()" type="email" placeholder="Email"
+									id="Semail" ng-model="register.email" name="mailId" required>
+							</div>
+							<div class="form-group">
+								<span id="labels"><label for="pwd" id="label-Rusername">Username:</label></span>
+								<input ng-keyPress="shwLabelUsername()" type="text"
+									autocomplete="off" ng-minlength="6" placeholder="Username"
+									id="Suser" ng-pattern="/^[a-zA-Z]*$/" ng-model="register.user"
+									name="username" required>
+							</div>
+							<div class="form-group">
+								<span id="labels"><label for="pwd" id="label-Rphone">Phone:</label></span>
+								<input ng-keyPress="shwLabelphone()" type="text"
+									autocomplete="off" ng-pattern="/^[0-9]{10}$/"
+									placeholder="Phone" id="Sphone" ng-model="register.phone"
+									name="phone" required>
+							</div>
+							<div class="form-group">
+								<span id="labels"><label for="pwd" id="label-Rpassword">Password:</label></span>
+								<input ng-keyPress="shwLabelpwd()" type="password"
+									ng-minlength="6" placeholder="Password" autocomplete="off"
+									ng-model="register.password" id="Spwd" name="password"
+									ng-pattern="/(?=.*[a-z])(?=.*[^a-zA-Z])/" required>
+							</div>
+							<div class="form-group">
+								<span id="labels"><label for="pwd" id="label-RCpassword">Confrim
+										Password:</label></span> <input placeholder="Confrim Password"
+									ng-keyPress="shwLabelCpwd()" type="password" id="Scpwd"
+									ng-pattern="/(?=.*[a-z])(?=.*[^a-zA-Z])/" ng-minlength="6"
+									password-match="register.password" autocomplete="off"
+									ng-model="register.cpassword" name="cfrmpassword" required>
+							</div>
+							<div style="display: flex;">
+								<div style="width: 290px; height: 20px;">
+
+
+
+									<div class="text-danger"
+										ng-show="signup.mailId.$dirty && signup.mailId.$invalid">
+										<span class="text-danger" ng-show="signup.mailId.$error">Valid
+											Email Required</span>
+									</div>
+
+									<div class="text-danger"
+										ng-show="signup.username.$dirty && signup.username.$invalid">
+										<span class="text-danger"
+											ng-show="signup.username.$error.minlength">Minimum 6
+											Char Username</span> <span class="text-danger"
+											ng-show="signup.username.$error.pattern">Username
+											Contains Only Characters</span>
+									</div>
+
+									<div class="text-danger"
+										ng-show="signup.phone.$dirty && signup.phone.$invalid">
+										<span class="text-danger"
+											ng-show="signup.phone.$error.pattern">Phone Number
+											Invalid</span>
+									</div>
+
+									<div class="text-danger"
+										ng-show="signup.password.$dirty && signup.password.$invalid">
+										<span class="text-danger"
+											ng-show="signup.password.$error.pattern">Password
+											Number Ex : abc123</span>
+									</div>
+
+									<!-- 	<div class="text-danger"
+										ng-show="signup.$dirty && signup.$invalid">
+										<span class="text-danger" ng-show="signup.$error"></span>
+									</div> -->
+
+
+
+									<div class="text-danger"
+										ng-show="signup.cfrmpassword.$dirty && signup.cfrmpassword.$invalid">
+										<span class="text-danger"
+											ng-show="signup.cfrmpassword.$error.pwmatch">Passwords
+											don't match.</span>
+									</div>
+								</div>
+								<button type="submit" class="btn btn-success btn-md SignUp-butn"
+									ng-click="registerMe(register)" ng-disabled="signup.$invalid">Sign
+									Up</button>
+							</div>
+						</form>
+					</div>
+
+				</div>
+
+			</div>
+		</div>
+	</div>
+</body>
+</html>

@@ -1,0 +1,577 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html ng-app="application">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<title>eReminder</title>
+<link rel="shortcut icon" href="/eReminder/Images/eReminder.png"
+	type="image/x-icon" />
+<script type="text/javascript"
+	src="/eReminder/JScript/jquery-1.11.1.min.js"></script>
+<script type="text/javascript" src="/eReminder/JScript/angular.min.js"></script>
+<script type="text/javascript" src="/eReminder/JScript/bootstrap.min.js"></script>
+<script type="text/javascript"
+	src="/eReminder/JScript/AngularJS/AngularApp.js"></script>
+<script type="text/javascript"
+	src="/eReminder/JScript/AngularJS/AngularController.js"></script>
+<script type="text/javascript"
+	src="/eReminder/JScript/AngularJS/AngularService.js"></script>
+
+<link rel="stylesheet" href="/eReminder/CSS/bootstrap.min.css" />
+<link rel="stylesheet" href="/eReminder/CSS/bootstrap-theme.min.css" />
+<link rel="stylesheet" href="/eReminder/CSS/jquery-ui.css">
+<link rel="stylesheet" href="/eReminder/CSS/Home.css">
+<link rel="stylesheet" href="/eReminder/CSS/simple-sidebar.css">
+
+
+</head>
+<body ng-controller="Controller" id="body">
+
+
+
+
+
+
+	<div class="fluid-container">
+		<div id="menu" class="col-md-12">
+			<div class="navbar-header">
+				<div id="logo" class="col-xs-12 col-sm-12 col-md-12">
+					<h1 class="title">eReminder</h1>
+				</div>
+			</div>
+
+
+
+
+
+			<div class="dropdown">
+				<button class="btn btn-success btn-header btn-md dropdown-toggle"
+					id="add" type="button" id="dropdownMenu1" data-toggle="dropdown"
+					aria-haspopup="true" aria-expanded="true">
+					Hi, {{UserName}} <span class="caret"></span>
+				</button>
+
+				<ul class="dropdown-menu alignDropBox"
+					aria-labelledby="dropdownMenu4">
+					<li><a href="" ng-click="accountAction('deleteAccount')">Delete
+							Account </a></li>
+					<li role="separator" class="divider"></li>
+					<li><a href="" ng-click="accountAction('logout')">Log Out<span
+							class="glyphicon glyphicon-log-out align-LogIcon"></span></a></li>
+				</ul>
+			</div>
+
+			<button class="btn btn-success btn-header btn-md" id="add"
+				ng-click="getRemiders()" type="button">
+				<span class="glyphicon glyphicon-plus-sign"></span> Manage Reminders
+			</button>
+
+
+
+
+
+
+
+
+
+
+		</div>
+	</div>
+	<div class="fluid-container">
+
+		<div id="wrapper" class="toggled">
+			<div class="col-xs-12 col-sm-12 col-md-12" id="content">
+
+
+				<!-- Small modal -->
+
+				<!-- <button type="button" class="btn btn-primary" data-toggle="modal"
+					data-target=".bs-example-modal-sm">Small modal</button> -->
+
+				<div class="modal fade bs-example-modal-sm" tabindex="-1"
+					id="succussModel" role="dialog" aria-labelledby="mySmallModalLabel">
+					<div class="modal-dialog modal-md">
+
+						<div class="modal-content">
+							<div class="modal-header">
+								<button type="button" class="close" data-dismiss="modal"
+									aria-label="Close">
+									<span aria-hidden="true">&times;</span>
+								</button>
+								<h4 class="modal-title" id="exampleModalLabel">Response</h4>
+							</div>
+
+							<p id="sucuss">{{succusMessage}}</p>
+							<div class="modal-footer">
+								<button type="button" class="btn btn-default"
+									data-dismiss="modal"
+									ng-click="reset($scope.remind.recurrence=='')">Close</button>
+
+							</div>
+						</div>
+					</div>
+				</div>
+				<!-- Delete Account  -->
+
+
+
+				<div class="modal fade bs-example-modal-sm" tabindex="-1"
+					id="DeleteAccount" role="dialog"
+					aria-labelledby="mySmallModalLabel">
+					<div class="modal-dialog modal-md">
+
+						<div class="modal-content">
+							<div class="modal-header">
+								<button type="button" class="close" data-dismiss="modal"
+									aria-label="Close">
+									<span aria-hidden="true">&times;</span>
+								</button>
+								<h4 class="modal-title" id="exampleModalLabel">eReminder
+									Alert</h4>
+							</div>
+
+							<p id="delete-alert">Are you sure want to Delete eReminder
+								Account ?</p>
+							<div class="modal-footer">
+								<button type="button" class="btn btn-default"
+									ng-click="cnfirmDeleteAccount('deleteAccount')"
+									data-dismiss="modal">Yes</button>
+								<button type="button" class="btn btn-primary"
+									data-dismiss="modal">No</button>
+
+							</div>
+						</div>
+					</div>
+				</div>
+				<!-- Delete Alert  -->
+
+
+
+				<div class="modal fade bs-example-modal-sm" tabindex="-1"
+					id="DeleteBox" role="dialog" aria-labelledby="mySmallModalLabel">
+					<div class="modal-dialog modal-md">
+
+						<div class="modal-content">
+							<div class="modal-header">
+								<button type="button" class="close" data-dismiss="modal"
+									aria-label="Close">
+									<span aria-hidden="true">&times;</span>
+								</button>
+								<h4 class="modal-title" id="exampleModalLabel">eReminder
+									Alert</h4>
+							</div>
+
+							<p id="delete-alert">Are you sure want to Delete eReminder ?</p>
+							<div class="modal-footer">
+								<button type="button" class="btn btn-default"
+									ng-click="cnfirmDelete()" data-dismiss="modal">Yes</button>
+								<button type="button" class="btn btn-primary"
+									data-dismiss="modal">No</button>
+
+							</div>
+						</div>
+					</div>
+				</div>
+
+
+				<!--  Slide wrapper -->
+
+				<div id="sidebar-wrapper">
+					<div class="sidebar-nav col-md-12 col-xs-12 col-sm-12">
+						<div class="sidebar-brand text-center">
+							<p id="eReminder-Status">eReminder Status</p>
+						</div>
+
+						<input type="text" class="form-control" id="Search"
+							ng-model="searchText" placeholder="Search">
+
+						<form class="form-inline">
+
+
+							<table class="table">
+								<thead>
+									<tr>
+										<th>Subject Of eReminder's</th>
+										<th>Action</th>
+									</tr>
+								</thead>
+								<tbody>
+									<tr ng-repeat="reminder in result| filter:searchText">
+										<td><p id="reminder-details">{{reminder.subject}}</p></td>
+										<td><span id="edit-reminder" ng-click="edit(reminder)"
+											class="glyphicon glyphicon-edit" title="Edit"></span> <span
+											id="delete-reminder" ng-click="deletee(reminder.serial)"
+											class="glyphicon glyphicon-trash" title="Delete"></span></td>
+									</tr>
+
+
+								</tbody>
+							</table>
+
+						</form>
+					</div>
+				</div>
+
+				<div style="margin: 20px 0px;" class="col-xs-12 col-sm-12 col-md-12">
+
+					<div class="panel panel-default">
+						<div class="panel-heading" id="label">
+							<label>Create Reminder</label>
+
+
+						</div>
+						<div class="panel-body">
+
+							<div
+								class="col-xs-10 col-sm-10 col-md-10 col-sm-offset-1 col-md-offset-1">
+
+								<form class="form-horizontal" name="mainform">
+									<div class="form-group">
+										<label for="inputEmail3" class="col-sm-2 control-label"
+											id="label-email">Email:</label>
+										<div class="col-sm-10">
+											<input type="email" class="form-control" id="inputEmail3"
+												placeholder="Email" ng-model="remind.mail" required>
+										</div>
+									</div>
+									<div class="form-group">
+										<label for="inputPassword3" class="col-sm-2 control-label"
+											id="label-subject">Subject:</label>
+										<div class="col-sm-10">
+											<input type="text" class="form-control" id="inputPassword3"
+												placeholder="Subject" ng-model="remind.subject" required>
+										</div>
+									</div>
+									<div class="form-group">
+										<label for="message" class="col-sm-2 control-label"
+											id="label-message">Message:</label>
+										<div class="col-sm-10">
+											<textarea id="text-area" class="form-control"
+												placeholder="Message" ng-model="remind.message" required></textarea>
+										</div>
+									</div>
+									<div class="form-group" id="Repetition">
+										<!-- ng-if="showRecurrenceBox" -->
+										<label for="message" class="col-sm-2 control-label"
+											id="label-Repetition">Repetition:</label>
+										<div class="col-sm-10">
+											<div class="form-control" id="recurrenceBox"
+												data-whatever="@mdo" data-toggle="modal"
+												data-target="#exampleModal">{{remind.recurrence}}</div>
+										</div>
+									</div>
+
+									<input type="text" ng-model="remind.serial"
+										style="display: none;">
+
+									<div class="form-group">
+										<!-- <label for="message" class="col-sm-2 control-label"
+										id="label-recurrence">Recurrence :</label> -->
+										<div class="col-sm-10">
+											<button type="button"
+												class="btn btn-default col-sm-offset-12"
+												title="Set Recurrence" data-whatever="@mdo"
+												data-toggle="modal" data-target="#exampleModal"
+												id="recurence" ng-click="setRecurrence()">
+												<p id="p-Recur">Recurrence</p>
+												<span id="glyphicon" class="glyphicon glyphicon-refresh"></span>
+											</button>
+										</div>
+									</div>
+
+									<div class="modal fade" id="exampleModal" tabindex="-1"
+										role="dialog" aria-labelledby="exampleModalLabel"
+										data-backdrop="static" data-keyboard="false">
+										<div class="modal-dialog" role="document">
+											<div class="modal-content">
+												<div class="modal-header">
+													<!-- <button type="button" class="close" data-dismiss="modal"
+														aria-label="Close">
+														<span aria-hidden="true">&times;</span>
+													</button> -->
+													<h4 class="modal-title" id="exampleModalLabel">Recurrence</h4>
+												</div>
+												<div class="modal-body">
+
+													<div class="col-xs-12 col-sm-12 col-md-12"
+														style="display: flex; margin-bottom: 15px;">
+														<div class="col-xs-3 col-sm-3 col-md-3"
+															style="border-right: 1px solid #ccc; width: 22%;">
+
+															<div class="radio">
+																<label> <input type="radio" name="optionsRadios"
+																	ng-model="remind.recurrence" id="optionsRadios1"
+																	value="Daily" ng-click="dailyOperation()">Daily
+																</label>
+															</div>
+															<div class="radio">
+																<label> <input type="radio" name="optionsRadios"
+																	ng-model="remind.recurrence" id="optionsRadios2"
+																	value="Weekely" ng-click="weekelyOperation()">Weekely
+																</label>
+															</div>
+															<div class="radio">
+																<label> <input type="radio" name="optionsRadios"
+																	ng-model="remind.recurrence" id="optionsRadios3"
+																	value="Monthly" ng-click="monthlyOperation()">Monthly
+																</label>
+															</div>
+															<div class="radio">
+																<label> <input type="radio" name="optionsRadios"
+																	ng-model="remind.recurrence" id="optionsRadios1"
+																	value="Yearly" ng-click="yearlyOperation()">Yearly
+																</label>
+															</div>
+														</div>
+
+														<div class="col-xs-10 col-sm-10 col-md-10" ng-show="daily"
+															style="padding-right: 0px;">
+
+															<div style="display: flex; padding: 8px 0px 0px 12px;">
+																<input type="radio" name="dailyRadio"
+																	ng-click="everyweekdayclick()" ng-model="remind.daily"
+																	value="EveryWeekDays">
+																<p id="type-recurrence">Every WeekDays</p>
+															</div>
+
+
+															<div style="display: flex; padding: 14px 0px 0px 12px;">
+																<input type="radio" name="dailyRadio"
+																	ng-model="remind.daily" value="Every"
+																	ng-click="everydayclick()">
+
+																<p id="type-recurrence">Every</p>
+																<input type="text" id="days" ng-pattern="/^[0-9]{1,7}$/"
+																	ng-model="remind.dailyDays"
+																	ng-disabled="disableTextBox"
+																	class="col-xs-1 col-sm-1 col-md-1 form-control"
+																	maxlength="3" ng-Minlength="1">
+																<p style="padding-left: 10px;">day(s)</p>
+															</div>
+
+															<div style="display: flex; padding: 18px 0px 0px 12px;">
+																<p for="selectbox" style="padding-top: 3px;">Start
+																	time :</p>
+																<select class="col-xs-1 col-sm-1 col-md-1 form-control"
+																	id="selectboxHrs" ng-model="remind.hrs">
+																	<option ng-repeat="hrs in hours" value="{{hrs}}">{{hrs}}</option>
+
+																</select> <span style="padding-left: 5px; font-size: 18px;">:</span><select
+																	ng-model="remind.min"
+																	class="col-xs-1 col-sm-1 col-md-1 form-control"
+																	id="selectboxMin">
+																	<option ng-repeat="min in minutes" value="{{min}}">{{min}}</option>
+																</select>
+															</div>
+
+														</div>
+
+														<div class="col-xs-10 col-sm-10 col-md-10"
+															ng-show="weekely" style="padding-right: 0px;">
+
+															<div>
+																<div style="padding: 5px 0px 0px 12px; height: 100px;">
+																	<div ng-repeat="(key, val) in weekday">
+																		<span
+																			style="width: 100px; float: left; margin-top: 5px;">
+																			<input type="checkbox"
+																			ng-click="seletDays(weekCheckboxs,key)"
+																			ng-model="weekCheckboxs" value="{{key}}">&nbsp;{{val
+																			| orderBy:'key'}}
+																		</span>
+																	</div>
+																</div>
+															</div>
+															<div style="display: flex; padding: 0px 0px 0px 12px;">
+																<p for="selectbox" style="padding-top: 3px;">Start
+																	time :</p>
+																<select class="col-xs-1 col-sm-1 col-md-1 form-control"
+																	id="selectboxHrs" ng-model="remind.hrs">
+																	<option ng-repeat="hrs in hours" value="{{hrs}}">{{hrs}}</option>
+
+																</select> <span style="padding-left: 5px; font-size: 18px;">:</span><select
+																	ng-model="remind.min"
+																	class="col-xs-1 col-sm-1 col-md-1 form-control"
+																	id="selectboxMin">
+																	<option ng-repeat="min in minutes" value="{{min}}">{{min}}</option>
+																</select>
+															</div>
+
+														</div>
+
+
+														<div class="col-xs-10 col-sm-10 col-md-10"
+															ng-show="Monthly" style="padding-right: 0px;">
+
+															<div style="display: flex; padding: 8px 0px 0px 12px;">
+																<input type="radio" name="monthlyRadioButn"
+																	ng-click="monthlySelect()" ng-model="remind.monthly"
+																	value="monthlyNoOfDays">&nbsp; Day&nbsp;<input
+																	type="text" id="textboxMonthly" maxlength="2"
+																	ng-Minlength="1" numbers-only="numbers-only"
+																	ng-model="remind.dailyDays"
+																	ng-pattern="/^([1-9]|[12][0-9]|31)$/"
+																	ng-disabled="disableMonthbox1"
+																	class="col-xs-1 col-sm-1 col-md-1 form-control">
+																&nbsp;of every &nbsp;<input type="text"
+																	numbers-only="numbers-only" maxlength="2"
+																	ng-Minlength="1" ng-disabled="disableMonthbox1"
+																	id="textboxMonthly"
+																	ng-pattern="/^([1-9]|[1][0-2]|12)$/"
+																	ng-model="remind.monthlyTimes1"
+																	class="col-xs-1 col-sm-1 col-md-1 form-control">&nbsp;Month(s)
+															</div>
+
+
+															<div style="display: flex; padding: 20px 0px 0px 12px;">
+																<input type="radio" name="monthlyRadioButn"
+																	ng-click="monthlySelectcheck()"
+																	ng-model="remind.monthly" value="monthlyDays">&nbsp;
+																The&nbsp; <select ng-disabled="disableMonthbox2"
+																	class="col-xs-1 col-sm-1 col-md-1 form-control"
+																	id="period" ng-model="remind.period">
+																	<option value="1">First</option>
+																	<option value="2">Second</option>
+																	<option value="3">Third</option>
+																	<option value="4">Fourth</option>
+																</select>&nbsp; <select ng-disabled="disableMonthbox2"
+																	class="col-xs-1 col-sm-1 col-md-1 form-control"
+																	id="periodWeekly" ng-model="remind.weekdays">
+																	<option value="{{key}}"
+																		ng-repeat="(key, val) in weekday  | orderBy : expression : reverse ">{{val}}</option>
+																</select> &nbsp;of every &nbsp;<input type="text" maxlength="3"
+																	ng-Minlength="1" ng-disabled="disableMonthbox2"
+																	id="textboxMonthly" ng-model="remind.monthlyTimes2"
+																	numbers-only="numbers-only"
+																	class="col-xs-1 col-sm-1 col-md-1 form-control">&nbsp;Month(s)
+															</div>
+
+
+															<div style="display: flex; padding: 20px 0px 0px 12px;">
+																<p for="selectbox" style="padding-top: 3px;">Start
+																	time :</p>
+																<select class="col-xs-1 col-sm-1 col-md-1 form-control"
+																	id="selectboxHrs" ng-model="remind.hrs">
+																	<option ng-repeat="hrs in hours" value="{{hrs}}">{{hrs}}</option>
+
+																</select> <span style="padding-left: 5px; font-size: 18px;">:</span><select
+																	ng-model="remind.min"
+																	class="col-xs-1 col-sm-1 col-md-1 form-control"
+																	id="selectboxMin">
+																	<option ng-repeat="min in minutes" value="{{min}}">{{min}}</option>
+																</select>
+															</div>
+
+														</div>
+
+
+
+
+
+														<div class="col-xs-10 col-sm-10 col-md-10"
+															ng-show="Yearly" style="padding-right: 0px;">
+
+
+
+															<div style="display: flex; padding: 8px 0px 0px 12px;">
+																<input type="radio" name="yearlyRadio"
+																	ng-click="yeralyselect()" ng-model="remind.yearly"
+																	value="EveryMonth">&nbsp; Every&nbsp;<select
+																	ng-disabled="yeralydisable1"
+																	class="col-xs-1 col-sm-1 col-md-1 form-control"
+																	id="periodWeekly" ng-model="remind.month">
+																	<option value="{{key}}"
+																		ng-repeat="(key, val) in months">{{val}}</option>
+
+																</select> &nbsp;<input type="text" id="textboxMonthly"
+																	ng-model="remind.dailyDays" numbers-only="numbers-only"
+																	ng-disabled="yeralydisable1" maxlength="2"
+																	ng-Minlength="1" ng-pattern="/^([1-9]|[12][0-9]|31)$/"
+																	class="col-xs-1 col-sm-1 col-md-1 form-control">
+															</div>
+
+
+															<div style="display: flex; padding: 20px 0px 0px 12px;">
+																<input type="radio" name="yearlyRadio"
+																	ng-click="selectedyeraly()" value="EveryPeriod"
+																	ng-model="remind.yearly">&nbsp; The&nbsp; <select
+																	ng-disabled="yeralydisable2"
+																	class="col-xs-1 col-sm-1 col-md-1 form-control"
+																	id="period" ng-model="remind.period">
+																	<option value="1">First</option>
+																	<option value="2">Second</option>
+																	<option value="3">Third</option>
+																	<option value="4">Fourth</option>
+																</select>&nbsp; <select ng-disabled="yeralydisable2"
+																	class="col-xs-1 col-sm-1 col-md-1 form-control"
+																	id="periodWeekly" ng-model="remind.weekdays">
+																	<option value="{{key}}"
+																		ng-repeat="(key, val) in weekday">{{val}}</option>
+
+																</select> &nbsp;of &nbsp;<select ng-disabled="yeralydisable2"
+																	class="col-xs-1 col-sm-1 col-md-1 form-control"
+																	id="periodWeekly" ng-model="remind.monthly">
+																	<option value="{{key}}"
+																		ng-repeat="(key, val) in months | orderBy : order">{{val}}</option>
+
+																</select>
+															</div>
+
+
+															<div style="display: flex; padding: 20px 0px 0px 12px;">
+																<p for="selectbox" style="padding-top: 3px;">Start
+																	time :</p>
+																<select class="col-xs-1 col-sm-1 col-md-1 form-control"
+																	id="selectboxHrs" ng-model="remind.hrs">
+																	<option ng-repeat="hrs in hours" value="{{hrs}}">{{hrs}}</option>
+
+																</select> <span style="padding-left: 5px; font-size: 18px;">:</span><select
+																	ng-model="remind.min"
+																	class="col-xs-1 col-sm-1 col-md-1 form-control"
+																	id="selectboxMin">
+																	<option ng-repeat="min in minutes" value="{{min}}">{{min}}</option>
+																</select>
+															</div>
+
+														</div>
+
+													</div>
+												</div>
+												<div class="modal-footer">
+													<span ng-show="alert"
+														style="margin-right: 27%; color: red;">Some Fields
+														Missing*</span>
+													<button type="button" ng-click="setOperation(remind)"
+														ng-disabled="remind.recurrence =='Schedule your eReminder'"
+														class="btn btn-primary">Set Operation</button>
+												</div>
+											</div>
+										</div>
+									</div>
+
+									<div class="form-group">
+										<div class="col-sm-offset-5 col-sm-10 col-xs-10">
+											<button type="submit" id="submit-btn" class="btn btn-primary"
+												ng-click="saveReminder(remind)"
+												ng-disabled="mainform.$invalid">Submit</button>
+										</div>
+									</div>
+								</form>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+
+
+
+
+
+
+
+		</div>
+
+
+
+	</div>
+</body>
+</html>
